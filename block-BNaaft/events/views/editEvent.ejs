@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Events</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Events</a>
+        </div>
+        <ul>
+          <li class="nav-li"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-li"><a href="/event" class="nav-link">Show events</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <form class="create-event" action="/event/<%= data.id%>/edit" method="POST">
+          <input class="create-input" type="text" name="title" placeholder="Enter the Title" value="<%= data.title%>">
+          <input class="create-input" type="text" name="summary" placeholder="Enter the Summary" value="<%= data.summary%>">
+          <input class="create-input" type="text" name="host" placeholder="Enter the Host Name" value="<%= data.host%>">
+          <input class="create-input" type="date" name="start" placeholder="Enter the Starting Date" value="<%= data.start%>">
+          <input class="create-input" type="date" name="end" placeholder="Enter the Ending Date" value="<%= data.end%>">
+          <input class="create-input" type="text" name="categories" placeholder="Enter the Catogery" value="<%= data.categories%>">
+          <input class="create-input" type="text" name="location" placeholder="Enter the Location" value="<%= data.loction%>">
+          <button class="create-btn" type="submit">Edit Event</button>
+        </form>
+      </div>
+    </main>
+    <footer>
+      <div class="footer">
+        <h2 class="footer-brand">Events</h2>
+      </div>
+    </footer>
+  </body>
+</html>

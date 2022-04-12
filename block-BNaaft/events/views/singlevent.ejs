@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Events</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Events</a>
+        </div>
+        <ul>
+          <li class="nav-li"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-li"><a href="/event" class="nav-link">Show events</a></li>
+          <li class="nav-li"><a href="/event/new" class="nav-link">Create event</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="container s-event">
+        <h1 class="event-title"><%= data.title%></h1>
+        <h2> <%= data.host%></h2>
+        <p class="event-info"><%= data.summary%></p>
+        <h5><%= data.likes%></h5>
+        <a href="/event/<%= data.id%>/like">
+          <button class="c-btn btn-l">like</button>
+        </a>
+        <a href="/event/<%= data.id%>/edit">
+          <button class="c-btn btn-e">Edit</button>
+        </a>
+        <a href="/event/<%= data.id%>/delete">
+          <button class="c-btn btn-d">Delete</button>
+        </a>
+        <div>
+          <form class="remark-form" action="/event/<%= data.id%>/remark" method="POST">
+            <input class="create-input" type="text" name="title" placeholder="Title">
+            <input class="create-input" type="text" name="author" placeholder="Author">
+            <button  class="remark-btn c-btn" type="submit">Add Remark</button>
+          </form>
+        </div>
+        <div>
+          <h3>show commit</h3>
+          <% data.remark.forEach(ele => { %>
+            <h4><%= ele.title%></h4>
+            <h5><%= ele.likes%></h5>
+            <a href="/remark/<%= ele.id%>/likes">
+              <button class="c-btn btn-l">Likes</button>
+            </a>
+            <a href="/remark/<%= ele.id%>/edit">
+              <button class="c-btn btn-e">edit</button>
+            </a>
+            <a href="/remark/<%= ele.id%>/delete">
+              <button class="c-btn btn-d">Delete</button>
+            </a>
+          <%})%>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div>
+        <h2 class="footer-brand">Events</h2>
+      </div>
+    </footer>
+  </body>
+</html>
