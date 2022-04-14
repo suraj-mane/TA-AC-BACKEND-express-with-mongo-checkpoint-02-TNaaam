@@ -5,22 +5,46 @@ var remark = require('../models/remark');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  event.find({}, (err,main) => {
-    if(err) return next(err);
-    event.find().distinct('categories',(err,category) => {
+  console.log(req.query,"==========")
+  if(req.query.category){
+    var category = req.query.category;
+    event.find({'categories':{$in:[category]}}, (err,events) => {
       if(err) return next(err);
-        res.render('events', {main,category});
-     })
-  })
+      event.find().distinct('categories',(err,category) => {
+        if(err) return next(err);
+          res.render('events', {events,category});
+       })
+    })
+  } else if(req.query.startdate) {
+    var start = req.query.startdate;
+    var end = req.query.enddate;
+    event.find({$and:[{"start": {$gte: start}}, {"end": {$lte: end}}]}  ,(err,events) => {
+      if(err) return next(err);
+      event.find().distinct('categories',(err,category) => {
+        if(err) return next(err);
+          res.render('events', {events,category});
+       })
+    })
+  } else if(req.query.location) {
+    var location = req.query.location; 
+    event.find({location:location},(err,events) => {
+      if(err) return next(err);
+      console.log(events)
+      event.find().distinct('categories',(err,category) => {
+        if(err) return next(err);
+          res.render('events', {events,category});
+       })
+    })
+  } else {
+    event.find({}, (err,events) => {
+      if(err) return next(err);
+      event.find().distinct('categories',(err,category) => {
+        if(err) return next(err);
+          res.render('events', {events,category});  
+       })
+    })
+  }
 });
-
-router.post('/', (req,res,next) => {
-  var text = req.body.text;
-  event.find({'categories':{$in:[text]}},(err,sdata) => {
-    if(err) return next(err);
-     res.render('events', {sdata:sdata});
-  })
-})
 
 /* GET Event create form */
 router.get('/new', function(req,res,next) {
@@ -28,17 +52,19 @@ router.get('/new', function(req,res,next) {
 })
 
 /* POST add event */
-router.post('/new', function(req,res,next) {
+router.post('/', function(req,res,next) {
   req.body.categories = req.body.categories.split(" ");
   event.create(req.body, (err,data) => {
     if(err) return next(err); 
-    res.redirect("/event");         
+    console.log(data);
+    res.redirect("/event/"+ data.id);         
   });          
 });
 
 /* GET event by Id */
 router.get('/:id', (req,res,next) => {
   var id = req.params.id;
+  console.log(req.body);
   event.findById(id).populate("remark").exec((err,data) => {
     if(err) return next(err);
     res.render('singlevent', {data: data});
@@ -50,6 +76,10 @@ router.get('/:id/edit', (req,res,next) => {
   var id = req.params.id;
   event.findById(id, (err,data) => {
     if(err) return next(err);
+    // let startDate = new Date(data.start);
+    // let endDate = new Date(data.end);
+    // data.start = startDate.getDate()+ "/" + startDate.getMonth()+ "/" + startDate.getFullYear();
+    // console.log(data);
     res.render('editEvent', {data:data});
   })
 })

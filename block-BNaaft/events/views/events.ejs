@@ -19,21 +19,33 @@
     </header>
     <main>
       <div>
-        <form class="search" action="">
-          <input class="search-input" type="text" name="text">
-          <button class="search-btn">search</button>
-        </form>
       </div>
      <div class="m">
       <div class="c">
-        <% category.forEach( ele => {%>
-          <ul>
-            <li class="category"><%= ele%></li>
-          </ul>
-        <%})%>
+        <form action="/event" method="get">
+          <select class="search" name="category">
+            <% category.forEach( ele => {%>
+              <option value="<%= ele%>"><%= ele%></option>
+              <%})%>
+          </select>
+          <button class="search-btn" type="submit">submit</button>
+        </form>
+        <form action="/event" method="get">
+          <input type="date" class="search" name="startdate">
+          <input type="date" class="search" name="enddate">
+          <button class="search-btn" type="submit">submit</button>
+        </form>
+        <form action="/event" method="get">
+          <select class="search" name="location">
+            <% events.forEach( ele => {%>
+              <option value="<%= ele.location%>"><%= ele.location%></option>
+              <%})%>
+          </select>
+          <button class="search-btn" type="submit">submit</button>
+        </form>
       </div>
       <div class="e">
-        <% main.forEach(ele => {%>
+        <% events.forEach(ele => {%>
           <ul>
             <a href="/event/<%= ele.id%>">
               <li class="category"><%= ele.title%></li>
