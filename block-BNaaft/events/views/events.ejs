@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Events</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Events</a>
+        </div>
+        <ul>
+          <li class="nav-li"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-li"><a href="/event" class="nav-link">Show events</a></li>
+          <li class="nav-li"><a href="/event/new" class="nav-link">Create event</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div>
+      </div>
+     <div class="m">
+      <div class="c">
+        <form action="/event" method="get">
+          <select class="search" name="category">
+            <% category.forEach( ele => {%>
+              <option value="<%= ele%>"><%= ele%></option>
+              <%})%>
+          </select>
+          <button class="search-btn" type="submit">submit</button>
+        </form>
+        <form action="/event" method="get">
+          <input type="date" class="search" name="startdate">
+          <input type="date" class="search" name="enddate">
+          <button class="search-btn" type="submit">submit</button>
+        </form>
+        <form action="/event" method="get">
+          <select class="search" name="location">
+            <% events.forEach( ele => {%>
+              <option value="<%= ele.location%>"><%= ele.location%></option>
+              <%})%>
+          </select>
+          <button class="search-btn" type="submit">submit</button>
+        </form>
+      </div>
+      <div class="e">
+        <% events.forEach(ele => {%>
+          <ul>
+            <a href="/event/<%= ele.id%>">
+              <li class="category"><%= ele.title%></li>
+            </a>
+          </ul>
+        <%})%>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+      <div>
+        <h2 class="footer-brand">Events</h2>
+      </div>
+    </footer>
+  </body>
+</html>

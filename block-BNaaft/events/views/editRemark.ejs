@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Events</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Events</a>
+        </div>
+        <ul>
+          <li class="nav-li"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-li"><a href="/event" class="nav-link">Show events</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <form class="create-event" action="/remark/<%= data.id%>/edit" method="POST">
+          <input class="create-input" type="text" name="title" placeholder="Enter the Title" value="<%= data.title%>">
+          <input class="create-input" type="text" name="author" placeholder="Enter the Summary" value="<%= data.author%>">
+          <button class="create-btn" type="submit">Edit Event</button>
+        </form>
+      </div>
+    </main>
+    <footer>
+      <div class="footer">
+        <h2 class="footer-brand">Events</h2>
+      </div>
+    </footer>
+  </body>
+</html>
