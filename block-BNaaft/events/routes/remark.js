@@ -9,7 +9,10 @@ router.get('/:id/likes', (req,res,next) => {
   var id = req.params.id;
   remark.findByIdAndUpdate(id, {$inc:{likes:1}}, (err,data) =>{
     if(err) return next(err);
-    res.redirect('/event/' + data.eventId);
+    event.findByIdAndUpdate(data.eventId,{$pull:{remark:data._id}}, (err, data)=> {
+      if(err) return next(err);
+      res.redirect('/event/' + data.eventId);
+    })
   })
 })
 
